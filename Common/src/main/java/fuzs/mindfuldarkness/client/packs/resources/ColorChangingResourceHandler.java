@@ -6,7 +6,7 @@ import fuzs.mindfuldarkness.client.handler.ColorChangedAssetsManager;
 import fuzs.mindfuldarkness.client.util.DarkeningAlgorithm;
 import fuzs.mindfuldarkness.client.util.RGBBrightnessUtil;
 import fuzs.mindfuldarkness.config.ClientConfig;
-import fuzs.puzzleslib.api.client.packs.v1.NativeImageHelper;
+import fuzs.puzzleslib.common.api.client.packs.v1.NativeImageHelper;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import org.apache.commons.lang3.StringUtils;

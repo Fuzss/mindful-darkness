@@ -7,9 +7,9 @@ import fuzs.mindfuldarkness.client.handler.ColorChangedAssetsManager;
 import fuzs.mindfuldarkness.client.handler.DaytimeSwitcherHandler;
 import fuzs.mindfuldarkness.client.util.DarkeningAlgorithm;
 import fuzs.mindfuldarkness.config.ClientConfig;
-import fuzs.puzzleslib.api.util.v1.CommonHelper;
+import fuzs.puzzleslib.common.api.util.v1.CommonHelper;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -44,11 +44,7 @@ public class PixelConfigScreen extends Screen {
         super.init();
         this.leftPos = (this.width - this.imageWidth) / 2;
         this.topPos = (this.height - this.imageHeight) / 2;
-        AbstractWidget[] buttons = DaytimeSwitcherHandler.makeButtons(this.minecraft,
-                this,
-                this.leftPos,
-                this.topPos,
-                this.imageWidth);
+        AbstractWidget[] buttons = DaytimeSwitcherHandler.makeButtons(this, this.leftPos, this.topPos, this.imageWidth);
         for (AbstractWidget button : buttons) {
             this.addRenderableWidget(button);
         }
@@ -116,27 +112,21 @@ public class PixelConfigScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        this.renderLabels(guiGraphics, mouseX, mouseY);
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+        this.extractLabels(guiGraphics, mouseX, mouseY);
     }
 
-    private void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        drawCenteredString(guiGraphics,
-                this.font,
-                ALGORITHM_COMPONENT,
-                this.width / 2,
-                this.topPos + 19,
-                0xFF404040,
-                false);
-        drawCenteredString(guiGraphics,
+    private void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        centeredText(guiGraphics, this.font, ALGORITHM_COMPONENT, this.width / 2, this.topPos + 19, 0xFF404040, false);
+        centeredText(guiGraphics,
                 this.font,
                 INTERFACE_DARKNESS_COMPONENT,
                 this.width / 2,
                 this.topPos + 67,
                 0xFF404040,
                 false);
-        drawCenteredString(guiGraphics,
+        centeredText(guiGraphics,
                 this.font,
                 FONT_BRIGHTNESS_COMPONENT,
                 this.width / 2,
@@ -145,23 +135,18 @@ public class PixelConfigScreen extends Screen {
                 false);
     }
 
-    public static void drawCenteredString(GuiGraphics guiGraphics, Font font, Component text, int x, int y, int color, boolean dropShadow) {
+    public static void centeredText(GuiGraphicsExtractor guiGraphics, Font font, Component text, int x, int y, int color, boolean dropShadow) {
         FormattedCharSequence formattedCharSequence = text.getVisualOrderText();
         if (dropShadow) {
-            guiGraphics.drawString(font, formattedCharSequence, (x - font.width(formattedCharSequence) / 2), y, color);
+            guiGraphics.text(font, formattedCharSequence, (x - font.width(formattedCharSequence) / 2), y, color);
         } else {
-            guiGraphics.drawString(font,
-                    formattedCharSequence,
-                    (x - font.width(formattedCharSequence) / 2),
-                    y,
-                    color,
-                    false);
+            guiGraphics.text(font, formattedCharSequence, (x - font.width(formattedCharSequence) / 2), y, color, false);
         }
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderTransparentBackground(guiGraphics);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        this.extractTransparentBackground(guiGraphics);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED,
                 DaytimeSwitcherHandler.TEXTURE_LOCATION,
                 this.leftPos,
@@ -172,7 +157,7 @@ public class PixelConfigScreen extends Screen {
                 this.imageHeight,
                 256,
                 256);
-        DaytimeSwitcherHandler.drawThemeBackground(guiGraphics, this.leftPos, this.topPos, this.imageWidth);
+        DaytimeSwitcherHandler.extractThemeBackground(guiGraphics, this.leftPos, this.topPos, this.imageWidth);
     }
 
     @Override

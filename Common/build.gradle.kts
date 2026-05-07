@@ -8,6 +8,6 @@ dependencies {
 
 multiloader {
     mixins {
-        clientMixin("Font\$PreparedTextBuilderMixin", "MultiPackResourceManagerMixin", "SpriteContentsMixin")
+        clientMixin("Font\u0024PreparedTextBuilderMixin", "MultiPackResourceManagerMixin", "SpriteContentsMixin")
     }
 }

@@ -21,7 +21,7 @@ abstract class SpriteContentsMixin {
 
     @Inject(method = "<init>(Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/resources/metadata/animation/FrameSize;Lcom/mojang/blaze3d/platform/NativeImage;Ljava/util/Optional;Ljava/util/List;Ljava/util/Optional;)V",
             at = @At("TAIL"))
-    public void init(Identifier identifier, FrameSize frameSize, NativeImage nativeImage, Optional<AnimationMetadataSection> animationMetadataSection, List<MetadataSectionType.WithValue<?>> list, Optional<TextureMetadataSection> textureMetadataSection, CallbackInfo ci) {
-        ColorChangingResourceHandler.INSTANCE.processResource(identifier, nativeImage);
+    public void init(Identifier name, FrameSize frameSize, NativeImage image, Optional<AnimationMetadataSection> animationInfo, List<MetadataSectionType.WithValue<?>> additionalMetadata, Optional<TextureMetadataSection> textureInfo, CallbackInfo callback) {
+        ColorChangingResourceHandler.INSTANCE.processResource(name, image);
     }
 }

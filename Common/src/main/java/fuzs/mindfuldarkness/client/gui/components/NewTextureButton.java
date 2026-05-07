@@ -2,10 +2,11 @@ package fuzs.mindfuldarkness.client.gui.components;
 
 import fuzs.mindfuldarkness.client.gui.screens.PixelConfigScreen;
 import fuzs.mindfuldarkness.client.handler.DaytimeSwitcherHandler;
-import fuzs.puzzleslib.api.client.gui.v2.GuiGraphicsHelper;
+import fuzs.puzzleslib.common.api.client.gui.v2.GuiGraphicsHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -32,8 +33,7 @@ public class NewTextureButton extends Button {
     }
 
     @Override
-    public void renderContents(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
-        Minecraft minecraft = Minecraft.getInstance();
+    public void extractContents(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float tickDelta) {
         GuiGraphicsHelper.blitNineSliced(guiGraphics,
                 RenderPipelines.GUI_TEXTURED,
                 DaytimeSwitcherHandler.TEXTURE_LOCATION,
@@ -50,8 +50,9 @@ public class NewTextureButton extends Button {
                 0,
                 this.getTextureY(),
                 ARGB.white(this.alpha));
-        PixelConfigScreen.drawCenteredString(guiGraphics,
-                minecraft.font,
+        Font font = Minecraft.getInstance().font;
+        PixelConfigScreen.centeredText(guiGraphics,
+                font,
                 this.getMessage(),
                 this.getX() + this.width / 2,
                 this.getY() + (this.height - 8) / 2,

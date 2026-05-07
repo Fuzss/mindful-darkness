@@ -24,17 +24,18 @@ abstract class MultiPackResourceManagerMixin {
     private ColorChangingResourceHandler mindfuldarkness$colorChangingHandler;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void init(PackType packType, List<PackResources> list, CallbackInfo callback) {
-        if (packType == PackType.CLIENT_RESOURCES) {
+    public void init(PackType type, List<PackResources> packs, CallbackInfo callback) {
+        if (type == PackType.CLIENT_RESOURCES) {
             this.mindfuldarkness$colorChangingHandler = ColorChangingResourceHandler.INSTANCE;
             this.mindfuldarkness$colorChangingHandler.clear();
         }
     }
 
     @Inject(method = "getResource", at = @At("RETURN"), cancellable = true)
-    public void getResource(Identifier identifier, CallbackInfoReturnable<Optional<Resource>> callback) {
+    public void getResource(Identifier location, CallbackInfoReturnable<Optional<Resource>> callback) {
         if (this.mindfuldarkness$colorChangingHandler != null) {
-            Optional<Resource> resource = this.mindfuldarkness$colorChangingHandler.getResource(identifier, callback.getReturnValue());
+            Optional<Resource> resource = this.mindfuldarkness$colorChangingHandler.getResource(location,
+                    callback.getReturnValue());
             if (resource.isPresent()) callback.setReturnValue(resource);
         }
     }

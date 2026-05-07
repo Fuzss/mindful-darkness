@@ -1,9 +1,10 @@
 {
+    "minecraft": "26.1.2",
     "mod": {
         "id": "mindfuldarkness",
         "group": "fuzs.mindfuldarkness",
         "name": "Mindful Darkness",
-        "version": "21.11.0",
+        "version": "26.1.0",
         "authors": [
             "Fuzs"
         ],
@@ -36,13 +37,13 @@
     ],
     "links": [
         {
-            "name": "github",
-            "slug": "mindfuldarkness"
-        },
-        {
             "name": "curseforge",
             "slug": "mindful-darkness",
             "id": "852669"
+        },
+        {
+            "name": "github",
+            "slug": "mindful-darkness"
         },
         {
             "name": "modrinth",

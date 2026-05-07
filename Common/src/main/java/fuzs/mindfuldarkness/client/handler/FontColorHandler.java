@@ -4,7 +4,7 @@ import fuzs.mindfuldarkness.MindfulDarkness;
 import fuzs.mindfuldarkness.client.util.HSPConversionUtil;
 import fuzs.mindfuldarkness.client.util.RGBBrightnessUtil;
 import fuzs.mindfuldarkness.config.ClientConfig;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.PlainTextContents;
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class FontColorHandler {
     private static boolean renderInDarkness;
 
-    public static void onBeforeRender(Screen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
+    public static void onBeforeRender(Screen screen, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float tickDelta) {
         String id = getScreenId(screen);
         if (id == null || !MindfulDarkness.CONFIG.get(ClientConfig.class).fontColorBlacklist.contains(id)) {
             renderInDarkness = true;
@@ -37,7 +37,7 @@ public class FontColorHandler {
         }
     }
 
-    public static void onAfterRender(Screen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
+    public static void onAfterRender(Screen screen, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float tickDelta) {
         renderInDarkness = false;
     }
 

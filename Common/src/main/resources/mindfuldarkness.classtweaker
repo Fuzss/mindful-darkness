@@ -5,3 +5,5 @@ accessible  field   net/minecraft/client/renderer/texture/TextureManager    tick
 accessible  method  net/minecraft/client/renderer/texture/TextureManager    safeClose   (Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/renderer/texture/AbstractTexture;)V
 extendable  method  net/minecraft/client/gui/components/AbstractSliderButton    setValueFromMouse   (Lnet/minecraft/client/input/MouseButtonEvent;)V
 accessible  field   net/minecraft/client/gui/components/AbstractSliderButton    dragging    Z
+transitive-accessible   field   net/minecraft/client/gui/components/ImageButton sprites Lnet/minecraft/client/gui/components/WidgetSprites;
+transitive-mutable  field   net/minecraft/client/gui/components/ImageButton sprites Lnet/minecraft/client/gui/components/WidgetSprites;

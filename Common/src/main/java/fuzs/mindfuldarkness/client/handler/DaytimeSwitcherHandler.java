@@ -3,11 +3,13 @@ package fuzs.mindfuldarkness.client.handler;
 import fuzs.mindfuldarkness.MindfulDarkness;
 import fuzs.mindfuldarkness.client.gui.screens.PixelConfigScreen;
 import fuzs.mindfuldarkness.config.ClientConfig;
-import fuzs.puzzleslib.api.client.gui.v2.components.SpritelessImageButton;
-import fuzs.puzzleslib.api.event.v1.core.EventResultHolder;
+import fuzs.puzzleslib.common.api.event.v1.core.EventResultHolder;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
@@ -27,6 +29,18 @@ import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
 public class DaytimeSwitcherHandler {
+    private static final WidgetSprites CROSS_BUTTON_SPRITES = new WidgetSprites(MindfulDarkness.id(
+            "switcher/cross_button"), MindfulDarkness.id("switcher/cross_button_highlighted"));
+    private static final WidgetSprites EDIT_BUTTON_SPRITES = new WidgetSprites(MindfulDarkness.id("switcher/edit_button"),
+            MindfulDarkness.id("switcher/edit_button_highlighted"));
+    private static final WidgetSprites DAYTIME_BUTTON_SPRITES = new WidgetSprites(MindfulDarkness.id(
+            "switcher/daytime_button"),
+            MindfulDarkness.id("switcher/daytime_button_disabled"),
+            MindfulDarkness.id("switcher/daytime_button_highlighted"));
+    private static final WidgetSprites NIGHTTIME_BUTTON_SPRITES = new WidgetSprites(MindfulDarkness.id(
+            "switcher/nighttime_button"),
+            MindfulDarkness.id("switcher/nighttime_button_disabled"),
+            MindfulDarkness.id("switcher/nighttime_button_highlighted"));
     public static final Identifier TEXTURE_LOCATION = MindfulDarkness.id("textures/gui/daytime_switcher.png");
     public static final String KEY_DEBUG_IDENTIFIER = "screen.debug.identifier";
     public static final String KEY_DEBUG_MENU_TYPE = "screen.debug.menuType";
@@ -69,7 +83,7 @@ public class DaytimeSwitcherHandler {
 
                     // we don't need both as chat messages are logged automatically
                     if (minecraft.level != null) {
-                        minecraft.gui.getChat().addMessage(message);
+                        minecraft.gui.getChat().addClientSystemMessage(message);
                     } else {
                         MindfulDarkness.LOGGER.info(message.getString());
                     }
@@ -85,7 +99,7 @@ public class DaytimeSwitcherHandler {
                     Component component = Component.literal(BuiltInRegistries.MENU.getKey(menuType).toString());
                     Component message = Component.translatable(KEY_DEBUG_MENU_TYPE,
                             ComponentUtils.wrapInSquareBrackets(component));
-                    minecraft.gui.getChat().addMessage(message);
+                    minecraft.gui.getChat().addClientSystemMessage(message);
                 }
             }
         }
@@ -93,13 +107,13 @@ public class DaytimeSwitcherHandler {
         return EventResultHolder.pass();
     }
 
-    public static void onAfterBackground(AbstractContainerScreen<?> screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public static void onAfterBackground(AbstractContainerScreen<?> screen, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (supportsDaytimeSwitcher(screen)) {
-            drawThemeBackground(guiGraphics, screen.leftPos, screen.topPos, screen.imageWidth);
+            extractThemeBackground(guiGraphics, screen.leftPos, screen.topPos, screen.imageWidth);
         }
     }
 
-    public static void drawThemeBackground(GuiGraphics guiGraphics, int leftPos, int topPos, int imageWidth) {
+    public static void extractThemeBackground(GuiGraphicsExtractor guiGraphics, int leftPos, int topPos, int imageWidth) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED,
                 TEXTURE_LOCATION,
                 leftPos + imageWidth - 3 - 101,
@@ -122,73 +136,68 @@ public class DaytimeSwitcherHandler {
         return false;
     }
 
-    public static void onAfterInit(Minecraft minecraft, AbstractContainerScreen<?> screen, int screenWidth, int screenHeight, List<AbstractWidget> widgets, UnaryOperator<AbstractWidget> addWidget, Consumer<AbstractWidget> removeWidget) {
+    public static void onAfterInit(AbstractContainerScreen<?> screen, int screenWidth, int screenHeight, List<AbstractWidget> widgets, UnaryOperator<AbstractWidget> addWidget, Consumer<AbstractWidget> removeWidget) {
         if (supportsDaytimeSwitcher(screen)) {
-            buttons = makeButtons(minecraft, screen, screen.leftPos, screen.topPos, screen.imageWidth);
+            buttons = makeButtons(screen, screen.leftPos, screen.topPos, screen.imageWidth);
             for (AbstractWidget button : buttons) {
                 addWidget.apply(button);
             }
         }
     }
 
-    public static AbstractWidget[] makeButtons(Minecraft minecraft, Screen screen, int leftPos, int topPos, int imageWidth) {
+    public static AbstractWidget[] makeButtons(Screen screen, int leftPos, int topPos, int imageWidth) {
         AbstractWidget[] abstractWidgets = new AbstractWidget[4];
-        abstractWidgets[0] = new SpritelessImageButton(leftPos + imageWidth - 3 - 21,
+        abstractWidgets[0] = new ImageButton(leftPos + imageWidth - 3 - 21,
                 topPos - 18,
                 15,
                 15,
-                224,
-                0,
-                TEXTURE_LOCATION,
-                button -> {
+                CROSS_BUTTON_SPRITES,
+                (Button button) -> {
                     screen.onClose();
                 });
-        abstractWidgets[1] = new SpritelessImageButton(leftPos + imageWidth - 3 - 40,
+        abstractWidgets[1] = new ImageButton(leftPos + imageWidth - 3 - 40,
                 topPos - 18,
                 15,
                 15,
-                239,
-                0,
-                TEXTURE_LOCATION,
-                button -> {
+                EDIT_BUTTON_SPRITES,
+                (Button button) -> {
                     if (screen instanceof PixelConfigScreen pixelConfigScreen) {
                         pixelConfigScreen.closeToLastScreen();
                     } else {
-                        minecraft.setScreen(new PixelConfigScreen(screen));
+                        screen.minecraft.setScreen(new PixelConfigScreen(screen));
                     }
                 });
-        abstractWidgets[2] = new SpritelessImageButton(leftPos + imageWidth - 3 - 68,
+        abstractWidgets[2] = new ImageButton(leftPos + imageWidth - 3 - 68,
                 topPos - 20,
                 24,
                 19,
-                200,
-                0,
-                TEXTURE_LOCATION,
-                button -> {
+                DAYTIME_BUTTON_SPRITES,
+                (Button button) -> {
                     toggleThemeButtons(abstractWidgets[3], abstractWidgets[2], true);
                 });
-        abstractWidgets[3] = new SpritelessImageButton(leftPos + imageWidth - 3 - 95,
+        abstractWidgets[3] = new ImageButton(leftPos + imageWidth - 3 - 95,
                 topPos - 20,
                 24,
                 19,
-                176,
-                0,
-                TEXTURE_LOCATION,
-                button -> {
+                NIGHTTIME_BUTTON_SPRITES,
+                (Button button) -> {
                     toggleThemeButtons(abstractWidgets[3], abstractWidgets[2], true);
                 });
         toggleThemeButtons(abstractWidgets[3], abstractWidgets[2], false);
         return abstractWidgets;
     }
 
-    private static void toggleThemeButtons(AbstractWidget lightThemeWidget, AbstractWidget darkThemeWidget, boolean toggleSetting) {
-        if (toggleSetting) activateDaytimeSwitch();
+    private static void toggleThemeButtons(AbstractWidget lightThemeWidget, AbstractWidget darkThemeWidget, boolean toggleSwitch) {
+        if (toggleSwitch) {
+            toggleSwitch();
+        }
+
         boolean darkTheme = MindfulDarkness.CONFIG.get(ClientConfig.class).darkTheme.get();
         lightThemeWidget.active = darkTheme;
         darkThemeWidget.active = !darkTheme;
     }
 
-    public static void activateDaytimeSwitch() {
+    public static void toggleSwitch() {
         ModConfigSpec.BooleanValue configValue = MindfulDarkness.CONFIG.get(ClientConfig.class).darkTheme;
         configValue.set(!configValue.get());
         configValue.save();

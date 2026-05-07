@@ -2,7 +2,7 @@ package fuzs.mindfuldarkness.client.gui.components;
 
 import com.mojang.blaze3d.platform.cursor.CursorTypes;
 import fuzs.mindfuldarkness.client.handler.DaytimeSwitcherHandler;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -28,7 +28,7 @@ public abstract class NewTextureSliderButton extends AbstractSliderButton {
     }
 
     @Override
-    public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED,
                 DaytimeSwitcherHandler.TEXTURE_LOCATION,
                 this.getX() + 2,
@@ -92,7 +92,7 @@ public abstract class NewTextureSliderButton extends AbstractSliderButton {
     }
 
     @Override
-    protected void setValueFromMouse(MouseButtonEvent event) {
+    public void setValueFromMouse(MouseButtonEvent event) {
         this.setValue((event.x() - (double) (this.getX() + 9)) / (double) (this.width - 18));
     }
 }

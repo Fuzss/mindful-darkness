@@ -3,12 +3,12 @@ package fuzs.mindfuldarkness.client;
 import fuzs.mindfuldarkness.client.handler.DaytimeMenuHandler;
 import fuzs.mindfuldarkness.client.handler.DaytimeSwitcherHandler;
 import fuzs.mindfuldarkness.client.handler.FontColorHandler;
-import fuzs.puzzleslib.api.client.core.v1.ClientModConstructor;
-import fuzs.puzzleslib.api.client.event.v1.ClientTickEvents;
-import fuzs.puzzleslib.api.client.event.v1.gui.ScreenEvents;
-import fuzs.puzzleslib.api.client.event.v1.gui.ScreenMouseEvents;
-import fuzs.puzzleslib.api.client.event.v1.gui.ScreenOpeningCallback;
-import fuzs.puzzleslib.api.event.v1.core.EventPhase;
+import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
+import fuzs.puzzleslib.common.api.client.event.v1.ClientTickEvents;
+import fuzs.puzzleslib.common.api.client.event.v1.gui.ScreenEvents;
+import fuzs.puzzleslib.common.api.client.event.v1.gui.ScreenMouseEvents;
+import fuzs.puzzleslib.common.api.client.event.v1.gui.ScreenOpeningCallback;
+import fuzs.puzzleslib.common.api.event.v1.core.EventPhase;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 
