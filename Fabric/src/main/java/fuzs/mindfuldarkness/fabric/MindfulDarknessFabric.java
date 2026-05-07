@@ -1,6 +1,6 @@
 package fuzs.mindfuldarkness.fabric;
 
-import fuzs.mindfuldarkness.MindfulDarkness;
+import fuzs.mindfuldarkness.common.MindfulDarkness;
 import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
 import net.fabricmc.api.ModInitializer;
 

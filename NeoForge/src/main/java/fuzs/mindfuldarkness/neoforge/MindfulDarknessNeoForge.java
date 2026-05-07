@@ -1,7 +1,7 @@
 package fuzs.mindfuldarkness.neoforge;
 
-import fuzs.mindfuldarkness.MindfulDarkness;
-import fuzs.mindfuldarkness.data.client.ModLanguageProvider;
+import fuzs.mindfuldarkness.common.MindfulDarkness;
+import fuzs.mindfuldarkness.common.data.client.ModLanguageProvider;
 import fuzs.puzzleslib.common.api.core.v1.ModConstructor;
 import fuzs.puzzleslib.neoforge.api.data.v2.core.DataProviderHelper;
 import net.neoforged.fml.common.Mod;
