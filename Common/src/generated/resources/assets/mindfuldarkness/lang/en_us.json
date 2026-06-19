@@ -8,6 +8,8 @@
   "screen.daytime_switcher.algorithm.linear": "Linear",
   "screen.daytime_switcher.front_brightness": "Font Brightness",
   "screen.daytime_switcher.interface_darkness": "Interface Darkness",
-  "screen.debug.identifier": "Screen Identifier: %s",
-  "screen.debug.menuType": "Menu Type: %s"
+  "screen.mindfuldarkness.debug.id": "Screen Id: %s",
+  "screen.mindfuldarkness.debug.menu": "Menu Type: %s",
+  "screen.mindfuldarkness.mode.dark": "Dark Mode",
+  "screen.mindfuldarkness.mode.light": "Light Mode"
 }

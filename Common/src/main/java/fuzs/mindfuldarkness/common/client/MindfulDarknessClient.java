@@ -1,6 +1,6 @@
 package fuzs.mindfuldarkness.common.client;
 
-import fuzs.mindfuldarkness.common.client.handler.DaytimeMenuHandler;
+import fuzs.mindfuldarkness.common.client.handler.DaytimeButtonHandler;
 import fuzs.mindfuldarkness.common.client.handler.DaytimeSwitcherHandler;
 import fuzs.mindfuldarkness.common.client.handler.FontColorHandler;
 import fuzs.puzzleslib.common.api.client.core.v1.ClientModConstructor;
@@ -22,7 +22,7 @@ public class MindfulDarknessClient implements ClientModConstructor {
     private static void registerEventHandlers() {
         ScreenEvents.afterBackground(AbstractContainerScreen.class).register(DaytimeSwitcherHandler::onAfterBackground);
         ScreenEvents.afterInit(AbstractContainerScreen.class).register(DaytimeSwitcherHandler::onAfterInit);
-        ScreenEvents.afterInit(Screen.class).register(EventPhase.AFTER, DaytimeMenuHandler::onAfterInit);
+        ScreenEvents.afterInit(Screen.class).register(EventPhase.AFTER, DaytimeButtonHandler::onAfterInit);
         ScreenOpeningCallback.EVENT.register(DaytimeSwitcherHandler::onScreenOpening);
         ClientTickEvents.END.register(DaytimeSwitcherHandler::onEndTick);
         ScreenMouseEvents.afterMouseClick(AbstractContainerScreen.class)

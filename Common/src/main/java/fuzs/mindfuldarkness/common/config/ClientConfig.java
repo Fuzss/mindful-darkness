@@ -24,7 +24,7 @@ public class ClientConfig implements ConfigCore {
     @Config(description = "Print screen identifier to game chat or log file whenever a new screen is opened. Intended for finding screens to be added to \"font_color_blacklist\".")
     public boolean debugAllScreens = false;
     @Config(description = "Screens to add a dark mode toggle button to, so that toggling is possible outside of inventory menus.")
-    public DaytimeButtonScreens darkModeToggleScreens = DaytimeButtonScreens.BOTH;
+    public DaytimeButtonTarget darkModeToggleScreens = DaytimeButtonTarget.BOTH;
     @Config(
             name = "paths", description = {
             "Specifies gui paths and resources to darken.",

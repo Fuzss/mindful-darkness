@@ -42,8 +42,8 @@ public class DaytimeSwitcherHandler {
             "switcher/nighttime_button"),
             MindfulDarkness.id("switcher/nighttime_button_disabled"),
             MindfulDarkness.id("switcher/nighttime_button_highlighted"));
-    public static final String KEY_DEBUG_IDENTIFIER = "screen.debug.identifier";
-    public static final String KEY_DEBUG_MENU_TYPE = "screen.debug.menuType";
+    public static final String KEY_DEBUG_ID = MindfulDarkness.id("debug").toLanguageKey("screen", "id");
+    public static final String KEY_DEBUG_MENU = MindfulDarkness.id("debug").toLanguageKey("screen", "menu");
 
     private static AbstractWidget[] buttons;
 
@@ -78,7 +78,7 @@ public class DaytimeSwitcherHandler {
                 String identifier = FontColorHandler.getScreenId(newScreen);
 
                 if (identifier != null) {
-                    Component message = Component.translatable(KEY_DEBUG_IDENTIFIER,
+                    Component message = Component.translatable(KEY_DEBUG_ID,
                             ComponentUtils.wrapInSquareBrackets(Component.literal(identifier)));
 
                     // we don't need both as chat messages are logged automatically
@@ -97,7 +97,7 @@ public class DaytimeSwitcherHandler {
 
                 if (menuType != null) {
                     Component component = Component.literal(BuiltInRegistries.MENU.getKey(menuType).toString());
-                    Component message = Component.translatable(KEY_DEBUG_MENU_TYPE,
+                    Component message = Component.translatable(KEY_DEBUG_MENU,
                             ComponentUtils.wrapInSquareBrackets(component));
                     minecraft.gui.hud.getChat().addClientSystemMessage(message);
                 }

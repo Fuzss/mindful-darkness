@@ -1,6 +1,7 @@
 package fuzs.mindfuldarkness.common.data.client;
 
 import fuzs.mindfuldarkness.common.client.gui.screens.PixelConfigScreen;
+import fuzs.mindfuldarkness.common.client.handler.DaytimeButtonHandler;
 import fuzs.mindfuldarkness.common.client.handler.DaytimeSwitcherHandler;
 import fuzs.mindfuldarkness.common.client.util.DarkeningAlgorithm;
 import fuzs.puzzleslib.common.api.client.data.v2.AbstractLanguageProvider;
@@ -14,8 +15,10 @@ public class ModLanguageProvider extends AbstractLanguageProvider {
 
     @Override
     public void addTranslations(TranslationBuilder builder) {
-        builder.add(DaytimeSwitcherHandler.KEY_DEBUG_IDENTIFIER, "Screen Identifier: %s");
-        builder.add(DaytimeSwitcherHandler.KEY_DEBUG_MENU_TYPE, "Menu Type: %s");
+        builder.add(DaytimeSwitcherHandler.KEY_DEBUG_ID, "Screen Id: %s");
+        builder.add(DaytimeSwitcherHandler.KEY_DEBUG_MENU, "Menu Type: %s");
+        builder.add(DaytimeButtonHandler.LIGHT_MODE_COMPONENT, "Light Mode");
+        builder.add(DaytimeButtonHandler.DARK_MODE_COMPONENT, "Dark Mode");
         builder.add(DarkeningAlgorithm.LINEAR.getComponent(), "Linear");
         builder.add(DarkeningAlgorithm.GRAYSCALE_AND_LINEAR.getComponent(), "Grayscale And Linear");
         builder.add(DarkeningAlgorithm.HSP.getComponent(), "HSP");
