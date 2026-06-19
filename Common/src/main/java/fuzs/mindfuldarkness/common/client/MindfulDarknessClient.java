@@ -27,7 +27,7 @@ public class MindfulDarknessClient implements ClientModConstructor {
         ClientTickEvents.END.register(DaytimeSwitcherHandler::onEndTick);
         ScreenMouseEvents.afterMouseClick(AbstractContainerScreen.class)
                 .register(DaytimeSwitcherHandler::onAfterMouseClick);
-        ScreenEvents.beforeRender(Screen.class).register(FontColorHandler::onBeforeRender);
-        ScreenEvents.afterRender(Screen.class).register(FontColorHandler::onAfterRender);
+        ScreenEvents.beforeExtract(Screen.class).register(FontColorHandler::onBeforeExtract);
+        ScreenEvents.afterExtract(Screen.class).register(FontColorHandler::onAfterExtract);
     }
 }

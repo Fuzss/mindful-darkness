@@ -48,7 +48,7 @@ public class DaytimeSwitcherHandler {
     private static AbstractWidget[] buttons;
 
     public static void onEndTick(Minecraft minecraft) {
-        setHorizontalButtonPosition(minecraft.screen);
+        setHorizontalButtonPosition(minecraft.gui.screen());
     }
 
     public static void onAfterMouseClick(Screen screen, MouseButtonEvent mouseButtonEvent) {
@@ -83,7 +83,7 @@ public class DaytimeSwitcherHandler {
 
                     // we don't need both as chat messages are logged automatically
                     if (minecraft.level != null) {
-                        minecraft.gui.getChat().addClientSystemMessage(message);
+                        minecraft.gui.hud.getChat().addClientSystemMessage(message);
                     } else {
                         MindfulDarkness.LOGGER.info(message.getString());
                     }
@@ -99,7 +99,7 @@ public class DaytimeSwitcherHandler {
                     Component component = Component.literal(BuiltInRegistries.MENU.getKey(menuType).toString());
                     Component message = Component.translatable(KEY_DEBUG_MENU_TYPE,
                             ComponentUtils.wrapInSquareBrackets(component));
-                    minecraft.gui.getChat().addClientSystemMessage(message);
+                    minecraft.gui.hud.getChat().addClientSystemMessage(message);
                 }
             }
         }
@@ -160,7 +160,7 @@ public class DaytimeSwitcherHandler {
                     if (screen instanceof PixelConfigScreen pixelConfigScreen) {
                         pixelConfigScreen.closeToLastScreen();
                     } else {
-                        screen.minecraft.setScreen(new PixelConfigScreen(screen));
+                        screen.minecraft.gui.setScreen(new PixelConfigScreen(screen));
                     }
                 });
         abstractWidgets[2] = new ImageButton(leftPos + imageWidth - 3 - 68,

@@ -188,7 +188,7 @@ public class PixelConfigScreen extends Screen {
 
     public void closeToLastScreen() {
         this.saveSettings();
-        this.minecraft.setScreen(this.lastScreen);
+        this.minecraft.gui.setScreen(this.lastScreen);
     }
 
     private void saveSettings() {

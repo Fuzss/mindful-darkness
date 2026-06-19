@@ -17,7 +17,7 @@ import java.util.Objects;
 public class FontColorHandler {
     private static boolean renderInDarkness;
 
-    public static void onBeforeRender(Screen screen, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float tickDelta) {
+    public static void onBeforeExtract(Screen screen, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float tickDelta) {
         String id = getScreenId(screen);
         if (id == null || !MindfulDarkness.CONFIG.get(ClientConfig.class).fontColorBlacklist.contains(id)) {
             renderInDarkness = true;
@@ -37,7 +37,7 @@ public class FontColorHandler {
         }
     }
 
-    public static void onAfterRender(Screen screen, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float tickDelta) {
+    public static void onAfterExtract(Screen screen, GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float tickDelta) {
         renderInDarkness = false;
     }
 
