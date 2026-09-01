@@ -6,11 +6,17 @@
     "26.1.x": "maintained",
     "26.2.x": "primary"
   },
-  "properties": {
-    "distributions.curseforge.id": "852669",
-    "distributions.curseforge.slug": "mindful-darkness",
-    "distributions.github.slug": "mindful-darkness",
-    "distributions.modrinth.id": "pzCY6C3e",
-    "distributions.modrinth.slug": "mindful-darkness"
+  "distributions": {
+    "curseforge": {
+      "id": "852669",
+      "slug": "mindful-darkness"
+    },
+    "github": {
+      "slug": "mindful-darkness"
+    },
+    "modrinth": {
+      "id": "pzCY6C3e",
+      "slug": "mindful-darkness"
+    }
   }
 }
