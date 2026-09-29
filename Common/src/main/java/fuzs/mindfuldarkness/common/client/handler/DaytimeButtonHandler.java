@@ -3,13 +3,12 @@ package fuzs.mindfuldarkness.common.client.handler;
 import fuzs.mindfuldarkness.common.MindfulDarkness;
 import fuzs.mindfuldarkness.common.config.ClientConfig;
 import net.minecraft.client.gui.components.*;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
 
 public class DaytimeButtonHandler {
     private static final WidgetSprites DAYTIME_BUTTON_SPRITES = new WidgetSprites(MindfulDarkness.id(
@@ -25,12 +24,12 @@ public class DaytimeButtonHandler {
     public static final Component DARK_MODE_COMPONENT = Component.translatable(MindfulDarkness.id("mode")
             .toLanguageKey("screen", "dark"));
 
-    public static void onAfterInit(Screen screen, int screenWidth, int screenHeight, List<AbstractWidget> widgets, UnaryOperator<AbstractWidget> addWidget, Consumer<AbstractWidget> removeWidget) {
+    public static void onAfterInit(Screen screen, int screenWidth, int screenHeight) {
         if (!MindfulDarkness.CONFIG.get(ClientConfig.class).darkModeToggleScreens.test(screen)) {
             return;
         }
 
-        List<AbstractWidget> iconButtons = getIconButtonsInRow(widgets, 3);
+        List<AbstractWidget> iconButtons = getIconButtonsInRow(screen.children(), 3);
         if (iconButtons.isEmpty()) {
             return;
         }
@@ -59,7 +58,7 @@ public class DaytimeButtonHandler {
             DaytimeSwitcherHandler.toggleSwitch();
             updateDaytimeButton((ImageButton) button);
         }, CommonComponents.EMPTY);
-        addWidget.apply(imageButton);
+        screen.addRenderableWidget(imageButton);
         updateDaytimeButton(imageButton);
 
         iconButtons.add(imageButton);
@@ -69,11 +68,11 @@ public class DaytimeButtonHandler {
         }
     }
 
-    private static List<AbstractWidget> getIconButtonsInRow(List<AbstractWidget> widgets, int minIconButtons) {
+    private static List<AbstractWidget> getIconButtonsInRow(List<? extends GuiEventListener> widgets, int minIconButtons) {
         Map<Integer, Integer> spriteButtonCountByY = new LinkedHashMap<>();
-        for (AbstractWidget widget : widgets) {
-            if (widget instanceof SpriteIconButton) {
-                spriteButtonCountByY.merge(widget.getY(), 1, Integer::sum);
+        for (GuiEventListener widget : widgets) {
+            if (widget instanceof SpriteIconButton spriteIconButton) {
+                spriteButtonCountByY.merge(spriteIconButton.getY(), 1, Integer::sum);
             }
         }
 
@@ -90,9 +89,9 @@ public class DaytimeButtonHandler {
         }
 
         List<AbstractWidget> row = new ArrayList<>();
-        for (AbstractWidget widget : widgets) {
-            if (widget.getY() == targetY && widget.getWidth() == Button.DEFAULT_HEIGHT) {
-                row.add(widget);
+        for (GuiEventListener widget : widgets) {
+            if (widget instanceof AbstractWidget abstractWidget && abstractWidget.getY() == targetY && abstractWidget.getWidth() == Button.DEFAULT_HEIGHT) {
+                row.add(abstractWidget);
             }
         }
 

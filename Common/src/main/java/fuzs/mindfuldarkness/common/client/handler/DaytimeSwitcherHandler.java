@@ -24,10 +24,6 @@ import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.jspecify.annotations.Nullable;
 
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
-
 public class DaytimeSwitcherHandler {
     private static final Identifier HEADER_BACKGROUND_SPRITE = MindfulDarkness.id("switcher/header_background");
     private static final WidgetSprites CROSS_BUTTON_SPRITES = new WidgetSprites(MindfulDarkness.id(
@@ -132,11 +128,11 @@ public class DaytimeSwitcherHandler {
         return false;
     }
 
-    public static void onAfterInit(AbstractContainerScreen<?> screen, int screenWidth, int screenHeight, List<AbstractWidget> widgets, UnaryOperator<AbstractWidget> addWidget, Consumer<AbstractWidget> removeWidget) {
+    public static void onAfterInit(AbstractContainerScreen<?> screen, int screenWidth, int screenHeight) {
         if (supportsDaytimeSwitcher(screen)) {
             buttons = makeButtons(screen, screen.leftPos, screen.topPos, screen.imageWidth);
             for (AbstractWidget button : buttons) {
-                addWidget.apply(button);
+                screen.addRenderableWidget(button);
             }
         }
     }
